@@ -1,0 +1,65 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "主页"
+			}
+		},
+		{
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
+			"path": "pages/goods/goods",
+			"style": {
+				"navigationBarTitleText": "商品"
+			}
+		},
+		{
+			"path": "pages/center/center",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uView",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "color": "#000000",
+	    "selectedColor": "#1296db",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+	    "list": [{
+	        "pagePath": "pages/index/index",
+	        "iconPath": "static/icon/home0.png",
+	        "selectedIconPath": "static/icon/home1.png",
+	        "text": "首页"
+	    }, {
+	        "pagePath": "pages/cart/cart",
+	        "iconPath": "static/icon/car0.png",
+	        "selectedIconPath": "static/icon/car1.png",
+	        "text": "购物车"
+	    }, {
+	        "pagePath": "pages/goods/goods",
+	        "iconPath": "static/icon/goods0.png",
+	        "selectedIconPath": "static/icon/goods1.png",
+	        "text": "商品"
+	    }, 
+		{
+	        "pagePath": "pages/center/center",
+	        "iconPath": "static/icon/center0.png",
+	        "selectedIconPath": "static/icon/center1.png",
+	        "text": "个人中心"
+	    }]
+	}
+}
