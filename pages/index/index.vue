@@ -8,9 +8,9 @@
 			</u-tabs>
 		</view>
 		<u-row gutter="16">
-			<u-col span="6" v-for="item in goods.length !=0 ?goods : [{},{},{},{},{}]">
+			<u-col span="6" v-for="goods in goodsList.length !=0 ?goodsList : [{},{},{},{},{}]">
 
-				<goods-card :item="item"></goods-card>
+				<goods-card :goods="goods"></goods-card>
 
 			</u-col>
 		</u-row>
@@ -39,7 +39,7 @@
 				],
 				currentSort: 0,
 				slides: [],
-				goods: [],
+				goodsList: [],
 				page: 1,
 				loading:false
 			}
@@ -53,7 +53,7 @@
 				this.currentSort = index
 				this.getData()
 				//点击就重置分页和商品数据
-				this.goods = [];
+				this.goodsList = [];
 				this.page = 1;
 				this.getData();
 			},
@@ -68,7 +68,7 @@
 				const res = await this.$u.api.index(params)
 				this.loading= false //隐藏骨架屏
 				this.slides = res.slides
-				this.goods = [...this.goods, ...res.goods.data]
+				this.goodsList = [...this.goodsList, ...res.goods.data]
 			},
 			onReachBottom() {
 				this.page += 1

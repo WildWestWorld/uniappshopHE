@@ -1,15 +1,15 @@
 <template>
 	<navigator class="goods-item">
 	
-		<u-image class="u-skeleton-fillet" width="100%" height="300rpx" :src="item.cover_url"></u-image>
+		<u-image class="u-skeleton-fillet" width="100%" height="300rpx" :src="goods.cover_url"></u-image>
 	
 		<!-- 商品名字 -->
-		<view class="title u-line-1 u-skeleton-rect" >{{item.title?item.title:'商品名称'}}</view>
+		<view class="title u-line-1 u-skeleton-rect" >{{goods.title?goods.title:'商品名称'}}</view>
 	
 		<!-- 价格和销量 -->
 		<view class="u-flex u-row-between ">
-			<view class="price u-skeleton-rect">价格：￥{{item.price}}</view>
-			<view class="sale u-skeleton-rect"> 销量：{{item.sales}}</view>
+			<view class="price u-skeleton-rect">价格：￥{{goods.price}}</view>
+			<view class="sale u-skeleton-rect"> 销量：{{goods.sales}}</view>
 		</view>
 	</navigator>
 </template>
@@ -18,7 +18,7 @@
 	export default {
 		name:"goods-card",
 		props:{
-			item:{
+			goods:{
 				type:Object,
 				default(){
 					return{}
