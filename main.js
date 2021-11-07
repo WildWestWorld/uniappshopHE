@@ -11,7 +11,8 @@ import uView from 'uview-ui'
 Vue.use(uView);
 
 
-
+let vuexStore = require("@/store/$u.mixin.js");
+Vue.mixin(vuexStore);
 
 
 
@@ -28,8 +29,8 @@ Vue.use(httpInterceptor, app)
 // http接口API集中管理引入部分
 import httpApi from '@/common/http.api.js'
 Vue.use(httpApi, app)
-
-let vuexStore = require("@/store/$u.mixin.js");
-Vue.mixin(vuexStore);
+//自定义工具
+import utils from '@/common/utils.js'
+Vue.use(utils, app)
 
 app.$mount()

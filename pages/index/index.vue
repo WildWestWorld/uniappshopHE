@@ -41,10 +41,12 @@
 				slides: [],
 				goodsList: [],
 				page: 1,
-				loading:false
+				loading: false
 			}
 		},
 		async onLoad() {
+			this.$u.utils.isLogin()
+			
 			this.getData()
 		},
 
@@ -58,7 +60,7 @@
 				this.getData();
 			},
 			async getData() {
-				this.loading= true //显示骨架屏
+				this.loading = true //显示骨架屏
 				const params = {
 					page: this.page
 				}
@@ -66,7 +68,7 @@
 				if (this.currentSort == 2) params.recommand = 1;
 				if (this.currentSort == 3) params.new = 1;
 				const res = await this.$u.api.index(params)
-				this.loading= false //隐藏骨架屏
+				this.loading = false //隐藏骨架屏
 				this.slides = res.slides
 				this.goodsList = [...this.goodsList, ...res.goods.data]
 			},
