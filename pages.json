@@ -31,7 +31,25 @@
             "path" : "pages/auth/login",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "登录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/auth/register",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "注册",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/center/baseInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人信息",
                 "enablePullDownRefresh": false
             }
             
