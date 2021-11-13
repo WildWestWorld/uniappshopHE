@@ -22,8 +22,16 @@ const install = (Vue, vm) => {
 	vm.$u.api.userInfo=()=> vm.$u.get('/api/user');//获取用户信息
 	
 	vm.$u.api.userInfoUpdate=(params={})=> vm.$u.put('/api/user',params);//修改用户信息
-	vm.$u.api.userAvatar=(params={})=> vm.$u.patch('/api/user/avatar',params);//修改用户信息
+	vm.$u.api.userAvatar=(params={})=> vm.$u.patch('/api/user/avatar',params);//上传用户图片
 	
+	//商品相关的
+	vm.$u.api.goodsInfo=id=> vm.$u.get(`/api/goods/${id}`);//获取用户信息
+	vm.$u.api.goodsCollect=id=> vm.$u.post(`/api/collects/goods/${id}`);
+	vm.$u.api.goodsList=(params={})=> vm.$u.get(`/api/goods`,params);
+	
+	//购物车相关的
+	vm.$u.api.cartAdd=(params={})=> vm.$u.post('/api/carts',params);//加入购物车
+	vm.$u.api.cartList=()=> vm.$u.get('/api/carts');
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 
 }
