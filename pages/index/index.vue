@@ -4,7 +4,7 @@
 		<u-swiper :list="slides" name="img_url" height="320"></u-swiper>
 
 		<view class="u-m-t-15">
-			<u-tabs :list="sortList" bar-width=100 :is-scroll="false" :current="currentSort" @change="changeSort">
+			<u-tabs :show-bar="false" :list="sortList" bar-width=100 :is-scroll="false" :current="currentSort" @change="changeSort">
 			</u-tabs>
 		</view>
 		<u-row gutter="16">

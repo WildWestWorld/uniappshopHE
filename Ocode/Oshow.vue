@@ -2,16 +2,16 @@
 	<view>
 		<!-- 图片框 -->
 		<view style="text-align:center;">
-			<img height="220" :src="goodsInfo.cover_url">
+			<img height="220" src="https://oss.shop.eduwork.cn/product/2020-0820-5f3e1871194a5.png">
 		</view>
 		<!-- 文字框+销量的容器 -->
 		<view class="top2" style="margin-top: -10px;">
 			<!-- 文字框 -->
-			<view class="title u-line-2">{{goodsInfo.title}}
+			<view class="title u-line-2">《细说JavaScript》
 			</view>
 			<view class="des">
-				<view class="price">价格：{{goodsInfo.price}}</view>
-				<view class="sales">销量：{{goodsInfo.sales}}</view>
+				<view class="price">￥9999</view>
+				<view class="sales">销量9999</view>
 			</view>
 		</view>
 
@@ -21,8 +21,8 @@
 		</view>
 		<!-- 标签滑动后的内容第一栏 -->
 		<view v-if="current==0">
-			<view class="info" style="u-p-b-80">
-				<u-parse :html="goodsInfo.details"></u-parse>
+			<view class="info" style="text-align: center;padding: 20px;">
+				本书的重点是。。
 			</view>
 		</view>
 		<!-- 标签滑动后的内容第二栏 -->
@@ -31,7 +31,7 @@
 			<view class="comment" v-for="(res,index)  in commentList" :key="res.id">
 				<!-- 第二栏的左半部分 -->
 				<view class="left">
-					<image :src="res.user.avatar_url" mode="aspectFill">
+					<image :src="res.url" mode="aspectFill">
 					</image>
 				</view>
 
@@ -39,7 +39,7 @@
 				<view class="right">
 					<!-- 第二栏的右半部分的上面 -->
 					<view class="top">
-						<view class="name">{{ res.user.name }}</view>
+						<view class="name">{{ res.name }}</view>
 						<!-- 点赞模块 -->
 						<view class="like" :class="{ highlight: res.isLike }">
 							<!-- 点赞模块之点赞次数 -->
@@ -59,7 +59,7 @@
 					</view> <!-- 结束右上 -->
 
 					<!-- 内容 -->
-					<view class="content">{{ res.content }}</view>
+					<view class="content">{{ res.contentText }}</view>
 
 					<!-- 回复栏 -->
 					<view class="reply-box">
@@ -77,14 +77,14 @@
 
 					<!-- 第二栏的底部 -->
 					<view class="bottom">
-						{{ res.created_at}}
+						{{ res.date }}
 						<view class="reply">回复</view>
 					</view>
 				</view><!-- 结束右半部分 -->
 			</view> <!-- 结束第二栏 -->
 		</view>
 		<!-- 第三栏 -->
-		<view v-if="current == 2" class="u-p-b-80">
+		<view v-if="current == 2">
 			<u-row gutter="16">
 				<u-col v-for="goods in goodsList" span="6">
 					<goods-card :goods="goods"></goods-card>
@@ -97,28 +97,20 @@
 		<view class="navigation" style="position:fixed; bottom: 0;width :100%; display: flex;justify-content: center;">
 			<!-- 左边 -->
 			<view class="left">
-				<view class="item u-text-center"  @click="collect">
-					<block v-if="IsCollect == 0">
-						<u-icon name="star" :size="40" color="black"></u-icon>
-						<view class="text u-line-1">收藏</view>
-					</block>
-
-					<block v-else>
-						<u-icon name="star" :size="40" color="red"></u-icon>
-						<view class="text u-line-1"  style="color:red;">已收藏</view>
-					</block>
-
+				<view class="item">
+					<u-icon name="star" :size="40" :color="$u.color['contentColor']"></u-icon>
+					<view class="text u-line-1">收藏</view>
 				</view>
 
 				<view class="item car">
-					<u-badge class="car-num" :count="cartCount" type="error" :offset="[-3,-6]"></u-badge>
+					<u-badge class="car-num" :count="9" type="error" :offset="[-3,-6]"></u-badge>
 					<u-icon name="shopping-cart" :size="40" :color="$u.color['contentColor']"></u-icon>
 					<view class="text u-line-1"> 购物车</view>
 				</view>
 			</view> <!-- 结束左边 -->
 
 			<view class="right">
-				<view class="cart btn u-line-1 " @click="addCart">加入购物车</view>
+				<view class="cart btn u-line-1 ">加入购物车</view>
 				<view class="buy btn u-line-1 ">立即购买</view>
 			</view>
 		</view>
@@ -133,7 +125,7 @@
 					name: '商品详情'
 				}, {
 					name: '商品评论',
-					count: 999
+					cout: 999
 				}, {
 					name: '推荐商品',
 
@@ -141,28 +133,19 @@
 				current: 0,
 				commentList: [],
 				goodsList: [],
-				goodsId: null,
-				goodsInfo: {},
-				IsCollect:0,
-				cartCount:0,
+
 			}
 		},
-		onLoad(option) {
-			this.goodsId = option.id
-			this.getCartCount()
-
+		onLoad() {
+			this.getComment()
 			this.getData()
 		},
 		methods: {
 			async getData() {
-				const res = await this.$u.api.goodsInfo(this.goodsId)
-				this.goodsInfo = res.goods
-				this.commentList = res.goods.comments
-				this.goodsList = res.like_goods
-				this.IsCollect=res.goods.is_collect
-				this.list[1].count = res.goods.comments.length
-				console.log(res);
-				console.log(this.goodsInfo);
+				const res = await this.$u.api.index({
+					page: this.current
+				})
+				this.goodsList = res.goods.data
 			},
 			change(index) {
 				this.current = index;
@@ -176,41 +159,73 @@
 					this.commentList[index].likeNum--;
 				}
 			},
-			async collect() {
-				//请求收藏API
-				await this.$u.api.goodsCollect(this.goodsId)
-				if(this.IsCollect===0){
-					this.$u.toast('收藏成功')
-					this.IsCollect =1
-				}
-				else{
-					this.$u.toast('取消收藏成功')
-					this.IsCollect =0
-				}
-			},
-			//加入购物车
-			async addCart(){
-				const params={
-					goods_id: this.goodsId
-				}
-				await this.$u.api.cartAdd(params)
-				//提示消息
-				this.$u.toast('添加购物车成功')
-				//重新获取购物车信息
-				this.getCartCount()
-			},
-			
-			//获取购物车数量
-			async getCartCount(){
-				const token = this.vuex_token
-				if(token){
-					const res = await this.$u.api.cartList()
-					console.log(res);
-					this.cartCount=res.data.length
-				}
-			},
 			//评论列表
-			
+			getComment() {
+				this.commentList = [{
+						id: 1,
+						name: '小二郎',
+						data: '12-25 18:55',
+						contentTest: '商品真不错',
+						url: 'https://cdn.uviewui.com/uview/template/SmilingDog.jpg',
+						allReply: 12,
+						likeNum: 33,
+						isLike: false,
+						replyList: [{
+								name: 'Angela',
+								contentStr: '这个商城真好用'
+							},
+							{
+								name: '那个谁',
+								contentStr: '我真NB'
+							},
+						]
+					}, //id1结束
+
+					{
+						id: 2,
+						name: '路人甲',
+						data: '1-25 18:55',
+						contentTest: '我是路人甲',
+						url: 'https://cdn.uviewui.com/uview/template/niannian.jpg',
+						allReply: 0,
+						likeNum: 11,
+						isLike: false,
+					}, //id2结束
+
+					{
+						id: 3,
+						name: '水上飘飘飘',
+						data: '3-25 18:55',
+						contentTest: '一双滑板鞋',
+						url: '../../../static/logo.png',
+						allReply: 0,
+						likeNum: 11,
+						isLike: false,
+						replyList: [{
+								name: 'uview',
+								contentStr: '这个商城真好用111'
+							},
+							{
+								name: '豆包',
+								contentStr: '我也算干粮'
+							},
+						]
+					}, //id3结束
+
+					{
+						id: 4,
+						name: '托尼adc',
+						data: '06-20 18:55',
+						contentTest: '我是陈独秀',
+						url: '../../../static/center.png',
+						allReply: 0,
+						likeNum: 150,
+						isLike: false,
+					} //id4结束
+
+
+				] //commentList结束
+			}
 		}
 	}
 </script>
@@ -279,7 +294,7 @@
 					align-items: center;
 					color: #9a9a9a;
 					font-size: 26rpx;
-
+					
 					margin-top: -80rpx;
 
 					.num {

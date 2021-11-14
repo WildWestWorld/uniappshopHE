@@ -2,46 +2,29 @@
 	<view class="u-wrap">
 		<view class="u-search-box">
 			<view class="u-search-inner">
-				<u-search placeholder="请输入搜索内容" v-model="keyword" @custom="searchGoods" @clear="clearSearch"></u-search>
-
+				<u-icon name="search" color="#909399" :size="28"></u-icon>
+				<text class="u-search-text">搜索商品</text>
 			</view>
-		</view>
-		<view>
-			<u-tabs :list="tabs.list" :is-scroll="false" :current="tabs.listCurrent" @change="change"></u-tabs>
-
 		</view>
 		<view class="u-menu-wrap">
 			<scroll-view scroll-y scroll-with-animation class="u-tab-view menu-scroll-view" :scroll-top="scrollTop">
-				<block v-for="(item,index) in categories" :key="item.index">
-
-					<view v-for="c in item.children" class="u-tab-item" :key="c.id"
-						:class="[current==c.id ? 'u-tab-item-active' : '']" :data-current="c.id"
-						@tap.stop="swichMenu(c.id)">
-						<text class="u-line-1">{{c.name}}</text>
-					</view>
-				</block>
-
+				<view v-for="(item,index) in categories" :key="index" class="u-tab-item" :class="[current==index ? 'u-tab-item-active' : '']"
+				 :data-current="index" @tap.stop="swichMenu(index)">
+					<text class="u-line-1">{{item.name}}</text>
+				</view>
 			</scroll-view>
-			<block>
-				<scroll-view scroll-y class="right-box" @scrolltolower="scrollEvent">
+			<block >
+				<scroll-view scroll-y class="right-box" v-if="current==index">
 					<view class="page-view">
 						<view class="class-item">
-							<!-- 	<view class="item-title">
+						<!-- 	<view class="item-title">
 								<text>{{item.name}}</text>
 							</view> -->
 							<view class="item-container">
-								<navigator class="thumb-box u-p-t-40 u-p-b-40" v-for="(goods,goodsIndex) in goodsList"
-									:key="goodsIndex" :url="`/pages/goods/show?id=${goods.id}`">
-									<image class="item-menu-image" :src="goods.cover_url" mode=""></image>
-									<view class="item-menu-name">{{goods.title}}</view>
-
-
-								</navigator>
-								<view v-if="goodsList.length==0" class="u-flex-1 u-p-t-30 u-p-b-30">
-									<u-empty text="暂无数据" mode="list"></u-empty>
+								<view class="thumb-box" v-for="(item1, index1) in goodsList" :key="index1">
+									<image class="item-menu-image" :src="item1.cover_url" mode=""></image>
+									<view class="item-menu-name">{{item1.title}}</view>
 								</view>
-
-
 							</view>
 						</view>
 					</view>
@@ -52,115 +35,58 @@
 </template>
 
 <script>
+	import classifyData from "@/common/classify.data.js";
 	export default {
 		data() {
 			return {
-				tabs: {
-					listCurrent: 0,
-					list: [{
-							name: '默认'
-						}, {
-							name: '销量'
-						}, {
-							name: '推荐',
-					
-						}, {
-							name: '最新'
-						}
-					
-					],
-				},
 				categories: [],
-				goodsList: [],
+				goodsList:[],
 				scrollTop: 0, //tab标题的滚动条位置
 				current: 0, // 预设当前项的值
-
 				menuHeight: 0, // 左边菜单的高度
 				menuItemHeight: 0, // 左边菜单item的高度
-				keyword: '',
-				page: 1,
-				isLast: false,
+				
 
 			}
 		},
-		onLoad() {
+		onLoad(){
 			this.getData()
 		},
 		computed: {
-
+			
 		},
 		methods: {
-			change(index) {
-				this.getData()
-				this.tabs.listCurrent = index;
-				console.log(this.tabs.listCurrent);
-				this.goodsList = [];
-				this.page = 1;
-				this.getData();
-			},
-			async getData() {
-				const params = {
-					page: this.page,
-					title: this.keyword,
-
-				}
-				if (this.tabs.listCurrent == 1) params.sales = 1;
-				if (this.tabs.listCurrent == 2) params.recommand = 1;
-				if (this.tabs.listCurrent == 3) params.new = 1;
-
-				if (this.current)
-					params.category_id = this.current;
-
-				const res = await this.$u.api.goodsList(params)
-
-				const ResCategories = res.categories.slice(0, 4)
-				console.log(ResCategories);
-				this.categories = ResCategories
-				this.goodsList = [...this.goodsList, ...res.goods.data]
-				this.isLast = res.goods.next_page_url ? false : true
-			},
-			searchGoods() {
-				this.initData()
-			},
-			clearSearch() {
-				this.initData()
-				this.keyword = ''
-
-			},
-			scrollEvent() {
-				if (this.isLast) return
-				this.page += 1
-				this.getData()
-			},
-			initData() {
-				this.page = 1
-				this.goodsList = []
-				this.getData()
-			},
+			async getData(){
+				const res =await this.$u.api.getGoods({page:this.current})
+				this.categories=res.categories
+				this.goodsList=res.goods.data
+			}
 			getImg() {
 				return Math.floor(Math.random() * 35);
 			},
 			// 点击左边的栏目切换
-			async swichMenu(cid) {
-				if (cid == this.current) return;
-				this.current = cid;
-				console.log(cid);
-				this.initData()
+			async swichMenu(index) {
+				if(index == this.current) return ;
+				this.current = index;
+				// 如果为0，意味着尚未初始化
+				if(this.menuHeight == 0 || this.menuItemHeight == 0) {
+					await this.getElRect('menu-scroll-view', 'menuHeight');
+					await this.getElRect('u-tab-item', 'menuItemHeight');
+				}
+				// 将菜单菜单活动item垂直居中
+				this.scrollTop = index * this.menuItemHeight + this.menuItemHeight / 2 - this.menuHeight / 2;
 			},
-
 			// 获取一个目标元素的高度
 			getElRect(elClass, dataVal) {
 				new Promise((resolve, reject) => {
 					const query = uni.createSelectorQuery().in(this);
-					query.select('.' + elClass).fields({
-						size: true
-					}, res => {
+					query.select('.' + elClass).fields({size: true},res => {
 						// 如果节点尚未生成，res值为null，循环调用执行
-						if (!res) {
+						if(!res) {
 							setTimeout(() => {
 								this.getElRect(elClass);
 							}, 10);
-							return;
+							return ;
 						}
 						this[dataVal] = res.height;
 					}).exec();
@@ -221,7 +147,7 @@
 		font-weight: 400;
 		line-height: 1;
 	}
-
+	
 	.u-tab-item-active {
 		position: relative;
 		color: #000;
@@ -229,7 +155,7 @@
 		font-weight: 600;
 		background: #fff;
 	}
-
+	
 	.u-tab-item-active::before {
 		content: "";
 		position: absolute;
@@ -242,39 +168,39 @@
 	.u-tab-view {
 		height: 100%;
 	}
-
+	
 	.right-box {
 		background-color: rgb(250, 250, 250);
 	}
-
+	
 	.page-view {
 		padding: 16rpx;
 	}
-
+	
 	.class-item {
 		margin-bottom: 30rpx;
 		background-color: #fff;
 		padding: 16rpx;
 		border-radius: 8rpx;
 	}
-
+	
 	.item-title {
 		font-size: 26rpx;
 		color: $u-main-color;
 		font-weight: bold;
 	}
-
+	
 	.item-menu-name {
 		font-weight: normal;
 		font-size: 24rpx;
 		color: $u-main-color;
 	}
-
+	
 	.item-container {
 		display: flex;
 		flex-wrap: wrap;
 	}
-
+	
 	.thumb-box {
 		width: 50%;
 		display: flex;
@@ -283,7 +209,7 @@
 		flex-direction: column;
 		margin-top: 30rpx;
 	}
-
+	
 	.item-menu-image {
 		width: 120rpx;
 		height: 120rpx;
