@@ -30,6 +30,7 @@
 				}
 				//3.请求API，完成注册  请求api需要去common目录注册
 				const res = this.$u.api.authRegister(params)
+				//4.注册成功后，重定向到登录(redirect)
 			}
 		}
 	}

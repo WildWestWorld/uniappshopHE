@@ -97,7 +97,7 @@
 		<view class="navigation" style="position:fixed; bottom: 0;width :100%; display: flex;justify-content: center;">
 			<!-- 左边 -->
 			<view class="left">
-				<view class="item u-text-center"  @click="collect">
+				<view class="item u-text-center" @click="collect">
 					<block v-if="IsCollect == 0">
 						<u-icon name="star" :size="40" color="black"></u-icon>
 						<view class="text u-line-1">收藏</view>
@@ -105,12 +105,12 @@
 
 					<block v-else>
 						<u-icon name="star" :size="40" color="red"></u-icon>
-						<view class="text u-line-1"  style="color:red;">已收藏</view>
+						<view class="text u-line-1" style="color:red;">已收藏</view>
 					</block>
 
 				</view>
 
-				<view class="item car">
+				<view class="item car" @click="toCart">
 					<u-badge class="car-num" :count="cartCount" type="error" :offset="[-3,-6]"></u-badge>
 					<u-icon name="shopping-cart" :size="40" :color="$u.color['contentColor']"></u-icon>
 					<view class="text u-line-1"> 购物车</view>
@@ -143,8 +143,8 @@
 				goodsList: [],
 				goodsId: null,
 				goodsInfo: {},
-				IsCollect:0,
-				cartCount:0,
+				IsCollect: 0,
+				cartCount: 0,
 			}
 		},
 		onLoad(option) {
@@ -159,13 +159,19 @@
 				this.goodsInfo = res.goods
 				this.commentList = res.goods.comments
 				this.goodsList = res.like_goods
-				this.IsCollect=res.goods.is_collect
+				this.IsCollect = res.goods.is_collect
 				this.list[1].count = res.goods.comments.length
 				console.log(res);
 				console.log(this.goodsInfo);
 			},
 			change(index) {
 				this.current = index;
+			},
+			toCart() {
+				this.$u.route({
+					type: 'switchTab',
+					url: 'pages/cart/cart'
+				})
 			},
 			getLike(index) {
 				this.commentList[index].isLike = !this.commentList[index].isLike;
@@ -179,18 +185,17 @@
 			async collect() {
 				//请求收藏API
 				await this.$u.api.goodsCollect(this.goodsId)
-				if(this.IsCollect===0){
+				if (this.IsCollect === 0) {
 					this.$u.toast('收藏成功')
-					this.IsCollect =1
-				}
-				else{
+					this.IsCollect = 1
+				} else {
 					this.$u.toast('取消收藏成功')
-					this.IsCollect =0
+					this.IsCollect = 0
 				}
 			},
 			//加入购物车
-			async addCart(){
-				const params={
+			async addCart() {
+				const params = {
 					goods_id: this.goodsId
 				}
 				await this.$u.api.cartAdd(params)
@@ -199,18 +204,18 @@
 				//重新获取购物车信息
 				this.getCartCount()
 			},
-			
+
 			//获取购物车数量
-			async getCartCount(){
+			async getCartCount() {
 				const token = this.vuex_token
-				if(token){
+				if (token) {
 					const res = await this.$u.api.cartList()
 					console.log(res);
-					this.cartCount=res.data.length
+					this.cartCount = res.data.length
 				}
 			},
 			//评论列表
-			
+
 		}
 	}
 </script>

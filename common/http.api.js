@@ -31,7 +31,7 @@ const install = (Vue, vm) => {
 	
 	//购物车相关的
 	vm.$u.api.cartAdd=(params={})=> vm.$u.post('/api/carts',params);//加入购物车
-	vm.$u.api.cartList=()=> vm.$u.get('/api/carts');
+	vm.$u.api.cartList=()=> vm.$u.get('/api/carts');//获取购物车信息
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
 
 }
