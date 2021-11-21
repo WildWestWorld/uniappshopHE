@@ -33,7 +33,9 @@ const install = (Vue, vm) => {
 	vm.$u.api.cartAdd=(params={})=> vm.$u.post('/api/carts',params);//加入购物车
 	vm.$u.api.cartList=()=> vm.$u.get('/api/carts');//获取购物车信息
 	vm.$u.api.cartAllList=()=> vm.$u.get('/api/carts?include=goods');//获取完整的购物车信息
+	vm.$u.api.cartIsChecked=(params={})=> vm.$u.patch('/api/carts/checked',params);//购物车改变选中
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
+	vm.$u.api.cartsDel = cartId => vm.$u.delete(`/api/carts/${cartId}`);// 移出购物车
 
 }
 

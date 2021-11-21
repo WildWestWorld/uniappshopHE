@@ -1,181 +1,90 @@
 <template>
-
-	<view class="greybgc">
-		<link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-		<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css" rel="stylesheet">
-		<view class="top">
-			<view class="bgc">
-
-
-				<view class="star">
-					<view class="starContainer">
-						<view class="">
-							<image class="starimg" src="../../static/icon/star.png" mode=""></image>
-						</view>
-					</view>
-					<view class="cartText">
-						<view class="">
-							<span>购物车(0)</span>
-						</view>
-						<view class="">
-							<view class="">
-								<span>共0件宝贝</span>
-							</view>
-						</view>
-
-					</view>
-
-
-				</view>
-
-				<view class="circle">
+	<view>
+		<view class="bottom-list">
+			<view class="">
+				<view class="whiteBackground">
 					<view class="">
-						<view class="circleContainer">
-							<view class="moonImgContainer">
-								<view class="">
-
-								</view>
-							</view>
-
-						</view>
-					</view>
-				</view>
-
-			</view>
-		</view>
-
-
-
-
-		<view class="content">
-			<view class="shopList">
-				<view class="">
-					<view class="topList">
-						<view class="">
-							<view class="">
-								<view class="whitebcg">
-
-									<view class="">
-										<view class="checkbox">
-											<view class="">
-												<u-checkbox v-model="checked" shape="circle" size="50" icon-size="30">
-												</u-checkbox>
-											</view>
-										</view>
-										<view class="icon-name">
-											<view>
-												<view class="git-icon">
-													<view class="fab fa-github-alt">
-
-													</view>
-												</view>
-												<view class="shop-name">
-													<span>荣博书城</span>
-												</view>
-											</view>
-										</view>
-										<view class="arrow">
-											<view class="fas fa-arrow-circle-right">
-
-											</view>
+						<view>
+							<view class="bl-left">
+								<view>
+									<view class="goods-checkbox">
+										<view>
+											<u-checkbox v-model="check" shape="circle" size="50"
+												icon-size="30">
+											</u-checkbox>
 										</view>
 									</view>
-
-
+		
+		
+									<view class="goods-img">
+										<view class="">
+		
+										</view>
+									</view>
 								</view>
 							</view>
-						</view>
-					</view>
-					<view v-for="(p,i) in goodsList.data" :key="i" class="bottom-list">
-						<view class="">
-							<view class="whiteBackground">
-								<view :target="(i===goodsList.data.length-1?'bcg-border':'bcg-noborder')">
-									<view>
-										<view class="bl-left">
-											<view>
-												<view class="goods-checkbox">
-													<view>
-														<u-checkbox v-model="p.is_checked===1 ? true : false"
-															shape="circle" size="50" :name="p.id" @change="changeCheck"
-															icon-size="30">
-														</u-checkbox>
-													</view>
-												</view>
-
-
-												<view class="goods-img">
-													<view class="">
-														<image :src="p.goods.cover_url" mode=""></image>
-													</view>
-												</view>
+							<view class="bl-right">
+								
+								<view class="">
+									<view class="">
+										<view class="delete-icon">
+											<view class="fas fa-trash-alt">
+												
 											</view>
 										</view>
-										<view class="bl-right">
-
+										<view class="bookname">
 											<view class="">
 												<view class="">
-													<view class="delete-icon"  @click="del(p.id)">
-														<view class="fas fa-trash-alt">
-
+													<text>{{goods.title}}</text>
+												</view>
+											</view>
+											
+										</view>
+										<view class="desripttion">
+											<view class="">
+												<view class="d-bcg">
+													<view class="">
+														<view class="d-text">
+															<span>这是一个描述</span>
 														</view>
 													</view>
-													<view class="bookname">
-														<view class="">
+												</view>
+		
+											</view>
+										</view>
+		
+										<view class="priceQuantity">
+											<view>
+												<view class="price">
+													<view class="">
+														<view class="price-text" >
+															<span>￥50</span>
+														</view>
+													</view>
+												</view>
+												<view class="quantity">
+													<view class="">
+														<view class="sub" @click="numsub">
+															<view>
+																<view class="sub-icon">
+																	<view class="fas fa-minus">
+		
+																	</view>
+																</view>
+															</view>
+														</view>
+														<view class="num">
+															<view>
+																<view class="input">
+																	<input type="text" :value="num" v-model="num">
+																</view>
+															</view>
+														</view>
+														<view class="add"  @click="numadd" >
 															<view class="">
-																<text>{{p.goods.title}}</text>
-															</view>
-														</view>
-
-													</view>
-													<view class="desripttion">
-														<view class="">
-															<view class="d-bcg">
-																<view class="">
-																	<view class="d-text">
-																		<span>{{p.goods.description}}</span>
-																	</view>
-																</view>
-															</view>
-
-														</view>
-													</view>
-
-													<view class="priceQuantity">
-														<view>
-															<view class="price">
-																<view class="">
-																	<view class="price-text">
-																		<span>￥{{p.goods.price}}</span>
-																	</view>
-																</view>
-															</view>
-															<view class="quantity">
-																<view class="">
-																	<view class="sub" @click="numsub">
-																		<view>
-																			<view class="sub-icon">
-																				<view class="fas fa-minus">
-
-																				</view>
-																			</view>
-																		</view>
-																	</view>
-																	<view class="num">
-																		<view>
-																			<view class="input">
-																				<input type="text" :value="num"
-																					v-model="num">
-																			</view>
-																		</view>
-																	</view>
-																	<view class="add" @click="numadd">
-																		<view class="">
-																			<view class="add-icon">
-																				<view class="fas fa-plus">
-
-																				</view>
-																			</view>
-																		</view>
+																<view class="add-icon">
+																	<view class="fas fa-plus">
+		
 																	</view>
 																</view>
 															</view>
@@ -189,139 +98,22 @@
 							</view>
 						</view>
 					</view>
-
 				</view>
 			</view>
 		</view>
-
-		<view class="compute">
-			<view class="">
-				<view class="select-all">
-					<view class="">
-						<view class="sa-checkbox">
-							<u-checkbox v-model="checked" shape="circle" size="50" icon-size="30" :label-size="36">
-								全选</u-checkbox>
-						</view>
-
-					</view>
-				</view>
-				<view class="allprice-check">
-					<view>
-						<view class="">
-							<view class="total">
-								<view class="">
-									<span>共计：</span>
-
-								</view>
-								<view class="">
-									<span class="far fa-money-bill-alt">0</span>
-								</view>
-							</view>
-							<view class="price-check">
-								<span class="fas fa-hand-holding-usd">结算</span>
-							</view>
-							<view class="">
-									<u-modal v-model="show" :content="content"></u-modal>
-							</view>
-						</view>
-					</view>
-
-
-				</view>
-			</view>
-		</view>
-
-
-	</view>
-
 	</view>
 </template>
 
 <script>
 	export default {
+		name:"cart-card",
+		goodsList:{
+			type:Object
+		}
 		data() {
 			return {
-				checked: false,
-				check: false,
-				checktest: false,
-				show: false,
-				cartid: '',
-				num: 1,
-				goodsList: [],
-				content:"芜湖"
-			}
-		},
-		onShow(){
-	this.cartAllList();
-		},
-		onLoad() {
-
-			this.cartAllList();
-
-		},
-
-		methods: {
-			async cartList() {
-				const res = await this.$u.api.cartList()
-				console.log(res);
-			},
-
-			async cartAllList() {
-				const res = await this.$u.api.cartAllList()
-				console.log(res);
-				this.goodsList = res;
-
-				console.log(this.goodsList);
-			},
-			async changeCheck(e) {
-				const {
-					name,
-					value
-				} = e
-
-				let cartchecked = []
-				this.goodsList.data.map(item => {
-
-					if (item.is_checked) {
-						cartchecked.push(item.id)
-					}
-
-				})
-				if (!value) {
-					cartchecked.splice(cartchecked.indexOf(name), 1)
-				} else {
-					cartchecked.push(name)
-				}
-				// console.log(this.goodsList.data);
-				// console.log(cartchecked);
-				await this.$u.api.cartIsChecked({
-					cart_ids: cartchecked
-				})
-				this.cartAllList();
-			},
-			
-			
-		async	 del(id) {
-				this.cartid = id;
-				// this.show=true;
-				await this.$u.api.cartsDel(this.cartid)
-				this.cartAllList();
-				console.log('success');
-
-			},
-			
-		
-			  
-					
-		
-			numadd() {
-
-				this.num < 999 ? this.num++ : this.num;
-			},
-			numsub() {
-
-				this.num > 1 ? this.num-- : this.num;
-			},
+				
+			};
 		}
 	}
 </script>
@@ -692,28 +484,6 @@
 
 	}
 
-	[target=bcg-border] {
-		position: relative;
-		display: flex;
-		background-color: #efefef;
-		width: 700rpx;
-		height: 100%;
-		border-radius: 0 0 48rpx 48rpx;
-
-	}
-
-	[target=bcg-noborder] {
-		position: absolute;
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		margin: 0;
-
-		background-color: #efefef;
-	}
-
 	.whiteBackground>view>view {
 		position: relative;
 		display: flex;
@@ -761,23 +531,19 @@
 	.goods-img>view {
 		position: relative;
 		display: flex;
-
+		background-image: url("https://picsum.photos/125/150?random=1");
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 180rpx;
 		height: 180rpx;
 		border-radius: 26rpx;
-		opacity: 1;
 
 	}
 
-	.goods-img>view>image {
+	.goods-img>view>img {
 		max-width: 100%;
 		max-height: 100%;
-		opacity: 1;
-		width: 180rpx;
-		height: 180rpx;
-		border-radius: 26rpx;
+		opacity: 0;
 	}
 
 	.goods-checkbox {
@@ -1115,7 +881,7 @@
 		height: 100%;
 		width: 400rpx;
 		margin: 0 12rpx 0 0;
-
+	
 	}
 
 	.sa-checkbox {
@@ -1142,7 +908,7 @@
 		width: 100%;
 		height: 100%;
 	}
-
+	
 
 	.total {
 		position: relative;
@@ -1177,48 +943,45 @@
 		position: relative;
 		justify-content: center;
 		align-items: center;
-
+	
 		height: 80rpx;
 		width: 100%;
-		color: white;
+		color:white;
 		border-radius: 40rpx;
-		background-color: red;
-		text-align: center;
+		background-color:red ;
+		text-align: center;	
 		font-size: 18px;
 		max-height: 92rpx;
-		min-width: 200rpx;
-
-
-	}
-
-	.delete-icon {
-		position: absolute;
-		display: flex;
-		width: 60rpx;
-		height: 60rpx;
-		left: 300rpx;
-		bottom: 144rpx;
-	}
-
-	.delete-icon>view {
-		position: relative;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 100%;
-		font-size: 16px;
-		line-height: 12px;
-		color: red;
-	}
-
-	.delete-icon>view>view {
-		position: relative;
-		display: flex;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		max-width: 100%;
-		max-height: 100%;
-	}
+		min-width:200rpx;
+	
+	
+		}
+		.delete-icon{
+			position: absolute;
+			display: flex;
+			width: 60rpx;
+			height: 60rpx;
+			left:300rpx;
+			bottom: 150rpx;
+		}
+		.delete-icon>view{
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 100%;
+			font-size: 16px;
+			line-height: 12px;
+			color:red;
+		}
+		.delete-icon>view>view{
+			position: relative;
+			display: flex;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			max-width: 100%;
+			max-height: 100%;
+		}
 </style>
