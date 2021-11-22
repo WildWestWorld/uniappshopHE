@@ -15,11 +15,11 @@
 					</view>
 					<view class="cartText">
 						<view class="">
-							<span>购物车(0)</span>
+							<span>购物车({{goodsList.data.length}})</span>
 						</view>
 						<view class="">
 							<view class="">
-								<span>共0件宝贝</span>
+								<span>共{{goodsList.data.length}}件宝贝</span>
 							</view>
 						</view>
 
@@ -48,7 +48,10 @@
 
 
 		<view class="content">
-			<view class="shopList">
+			<view v-if="!goodsList.data.length" class="goods-empty">
+				你的购物车空空如也，再去添加点商品吧
+			</view>
+			<view v-else class="shopList">
 				<view class="">
 					<view class="topList">
 						<view class="">
@@ -58,7 +61,8 @@
 									<view class="">
 										<view class="checkbox">
 											<view class="">
-												<u-checkbox v-model="checked" shape="circle" size="50" icon-size="30">
+												<u-checkbox v-model="checked" shape="circle" size="50" icon-size="30"
+													@change="selectAll">
 												</u-checkbox>
 											</view>
 										</view>
@@ -114,7 +118,7 @@
 
 											<view class="">
 												<view class="">
-													<view class="delete-icon"  @click="del(p.id)">
+													<view class="delete-icon" @click="del(p.id)">
 														<view class="fas fa-trash-alt">
 
 														</view>
@@ -151,7 +155,7 @@
 															</view>
 															<view class="quantity">
 																<view class="">
-																	<view class="sub" @click="numsub">
+																	<view class="sub" @click="numsub(i)">
 																		<view>
 																			<view class="sub-icon">
 																				<view class="fas fa-minus">
@@ -163,12 +167,11 @@
 																	<view class="num">
 																		<view>
 																			<view class="input">
-																				<input type="text" :value="num"
-																					v-model="num">
+																				<input type="text" v-model="p.num">
 																			</view>
 																		</view>
 																	</view>
-																	<view class="add" @click="numadd">
+																	<view class="add" @click="numadd(i)">
 																		<view class="">
 																			<view class="add-icon">
 																				<view class="fas fa-plus">
@@ -214,14 +217,15 @@
 
 								</view>
 								<view class="">
-									<span class="far fa-money-bill-alt">0</span>
+									<span class="far fa-money-bill-alt">{{totalPrice}}</span>
 								</view>
 							</view>
-							<view class="price-check">
+							<view class="price-check" @click="toPreview">
 								<span class="fas fa-hand-holding-usd">结算</span>
 							</view>
 							<view class="">
-									<u-modal v-model="show" :content="content"></u-modal>
+								<u-modal v-model="show" @confirm="confirm" :content="content"
+									:show-cancel-button="true"></u-modal>
 							</view>
 						</view>
 					</view>
@@ -247,19 +251,33 @@
 				show: false,
 				cartid: '',
 				num: 1,
-				goodsList: [],
-				content:"芜湖"
+				goodsList: {
+					data: []
+				},
+				content: "确认要删除商品？",
+
 			}
 		},
-		onShow(){
-	this.cartAllList();
+		onShow() {
+			this.cartAllList();
 		},
 		onLoad() {
 
 			this.cartAllList();
 
 		},
+		computed: {
+			totalPrice() {
+				//筛选
+				let checkedArr = this.goodsList.data.filter(item => item.is_checked == 1)
 
+				return checkedArr.reduce((sum, item) => sum + item.goods.price * item.num, 0)
+				// let sum=0;              
+				// console.log( this.goodsList.data);
+				//   this.goodsList.data.forEach(item=>sum+=item.goods.price*item.num)
+				//   return sum
+			}
+		},
 		methods: {
 			async cartList() {
 				const res = await this.$u.api.cartList()
@@ -267,11 +285,11 @@
 			},
 
 			async cartAllList() {
-				const res = await this.$u.api.cartAllList()
-				console.log(res);
-				this.goodsList = res;
+				this.goodsList = await this.$u.api.cartAllList()
 
-				console.log(this.goodsList);
+
+				this.checked = await this.goodsList.data.every(item => item.is_checked == 1) || false;
+				// console.log(this.goodsList.data);
 			},
 			async changeCheck(e) {
 				const {
@@ -297,30 +315,70 @@
 				await this.$u.api.cartIsChecked({
 					cart_ids: cartchecked
 				})
+
 				this.cartAllList();
 			},
-			
-			
-		async	 del(id) {
+
+
+			del(id) {
 				this.cartid = id;
-				// this.show=true;
+				this.show = true;
+
+
+			},
+			async confirm() {
 				await this.$u.api.cartsDel(this.cartid)
+
 				this.cartAllList();
 				console.log('success');
+			},
+
+			async selectAll() {
+				this.checked = !this.checked
+
+				this.goodsList.data.map(item => item.is_checked = this.checked + 0)
+
+
+				// if (item.is_checked=this.checked) {
+				// 	item.is_checked = true;
+				// 	if (item.is_checked === true) {
+				// 		add.push(item.id)
+				// 	}
+				// 		}
+				// else{
+				// 	var add = [];
+
+
+				// add.push(item.id)
+
+
+
+				let cart_ids = this.checked ? Object.values(this.goodsList.data).map(item => item.id) : []
+				console.log(cart_ids);
+
+				await this.$u.api.cartIsChecked({
+					cart_ids
+				})
+
+
+				this.cartAllList();
 
 			},
-			
-		
-			  
-					
-		
-			numadd() {
-
-				this.num < 999 ? this.num++ : this.num;
+			toPreview() {
+				this.$u.route({
+					type: 'navigateTo',
+					url: 'pages/preview/preview'
+				})
+				console.log("success");
 			},
-			numsub() {
 
-				this.num > 1 ? this.num-- : this.num;
+			numadd(index) {
+				this.goodsList.data[index].num++;
+
+			},
+			numsub(index) {
+				this.goodsList.data[index].num--;
+
 			},
 		}
 	}
@@ -497,10 +555,10 @@
 	.content {
 		position: absolute;
 		display: flex;
-		height: 100%;
+
 		width: 100%;
 		top: 0;
-		bottom: 0;
+
 		margin-top: 400rpx;
 		margin-bottom: 200rpx;
 	}
