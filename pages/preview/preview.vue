@@ -78,27 +78,48 @@
 													<view class="goods-name">
 														<view class="">
 															<view class="name">
-															<view class="">
 																<view class="">
-																	<text>小奥丁双头极细眉笔 防水防汗 持久不褪色不晕染眉粉初学者女</text>
+																	<view class="">
+																		<text>小奥丁双头极细眉笔 防水防汗 持久不褪色不晕染眉粉初学者女</text>
+																	</view>
 																</view>
 															</view>
-															</view>
 															<view class="desripttions">
-															<view class="">
-																<view class="greybg">
+																<view class="">
+																	<view class="greybg">
 																		<view class="">
 																			<text>颜色分类01自然灰净含量:0.12g</text>
 																		</view>
+																	</view>
 																</view>
 															</view>
-															</view>
 															<view class="no-reason">
-
+																<view class="text-skycat">
+																	<view class="">
+																		<text>荣博无忧购</text>
+																	</view>
+																</view>
+																<view class="text-sevendays">
+																	<view class="">
+																		<text>七天无理由退换</text>
+																	</view>
+																</view>
 															</view>
 														</view>
 													</view>
 													<view class="goods-price">
+														<view class="">
+															<view class="price-num">
+																<view class="">
+																	<text>￥ 59.00</text>
+																</view>
+															</view>
+															<view class="goods-itemnum">
+																<view class="">
+																	<text>x1</text>
+																</view>
+															</view>
+														</view>
 
 													</view>
 
@@ -106,19 +127,158 @@
 											</view>
 										</view>
 										<view class="postmethods">
+											<view class="">
+												<view class="bgc-bottom">
+													<view class="">
+														<view class="post">
+															<view class="">
+																<view class="post-text">
+																	<view class="">
+																		<text>配送方式</text>
+																	</view>
+																</view>
+																<view class="post-config">
+																	<view class="">
+																		<text>普通配送</text>
+																		<text class="free">快递 免邮</text>
+																	</view>
+																	
+																</view>
+																<view class="post-free">
+																	<view class="">
+																		<view class="text-postfree">
+																			<text></text>
+																		</view>
+																		<view class="post-rightarrow">
+																			<view class="fas fa-chevron-right">
 
+																			</view>
+																		</view>
+																	</view>
+																</view>
+
+															</view>
+
+														</view>
+														<view class="money">
+															<view class="">
+																<view class="money-text">
+																<view class="">
+																	<view class="questionIcon">
+																		<view class="">
+																			<view class="fas fa-question-circle">
+																				
+																			</view>
+																		</view>
+																	</view>
+																	<view class="postmoney-text">
+																	
+																		
+																		<text>运费险</text>
+																		<view class="question-icon">
+																		
+																		</view>
+																	</view>
+																</view>
+																</view>
+																<view class="money-config">
+																<view class="">
+																	<text>卖家赠送，退换货可赔</text>
+																</view>
+																</view>
+																<view class="money-icon">
+																	<view class="">
+																		<view class="fas fa-chevron-right">
+																			
+																		</view>
+																	</view>
+																</view>
+															</view>
+														</view>
+														<view class="card">
+															<view class="">
+																<view class="text">
+																	<text>开具发票</text>
+																</view>
+																<view class="config">
+																	<view class="card-config">
+																		<text>本次不开具发票</text>
+																	</view>
+																</view>
+																<view class="icon">
+																	<view class="">
+																		<view class="fas fa-chevron-right">
+																			
+																		</view>
+																	</view>
+																</view>
+															</view>
+														</view>
+														<view class="cart-notice">
+														<view class="">
+															<view class="text">
+																<text>订单备注</text>
+															</view>
+															<view class="config">
+																 <view class="notice-config">
+																 	<text>选填,请先和商家协商一致</text>
+																 </view>
+															</view>
+															<view class="icon">
+																
+															</view>
+														</view>
+														</view>
+														<view class="all-price">
+														<view class="">
+															<view class="allNum">
+																<text>共1件</text>
+															</view>
+															<view class="allPrice">
+																<text>小计:</text>
+																<text class="all-money">￥59.00</text>
+															</view>
+														
+														</view>
+														</view>
+													</view>
+												</view>
+											</view>
 										</view>
 									</view>
 								</view>
 							</view>
 						</view>
 						<view class="bottom">
-
+							<view class="">
+									<u-checkbox v-model="checked" shape="circle" label-size="13" >匿名购买</u-checkbox>
+							</view>
 						</view>
 					</view>
 				</view>
 				<view class="bottomList">
-
+					<view class="">
+						<view class="wbcg">
+							<view class="">
+								<view class="count-num">
+									<text>共1件,</text>
+								</view>
+								<view class="count-price">
+									<text>合计:</text>
+									<text class="orange">￥</text>
+									<text class="orangePrice">59</text>
+									<text class="orange">.00</text>
+								</view>
+								<view class="sub-cart">
+									<view class="">
+										<view class="blue-bgc">
+											<text>提交订单</text>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -129,7 +289,7 @@
 	export default {
 		data() {
 			return {
-
+				checked:false,
 			}
 		},
 		methods: {
@@ -170,7 +330,7 @@
 		position: fixed;
 		z-index: 999;
 		width: 100%;
-		height: 200rpx;
+		height:108rpx;
 		bottom: 0px;
 	}
 
@@ -346,7 +506,7 @@
 		position: relative;
 		display: flex;
 		width: 100%;
-		height: 800rpx;
+		height: fit-content;
 	}
 
 	.middle>view {
@@ -427,6 +587,7 @@
 		height: 220rpx;
 		width: 100%;
 		overflow: hidden;
+		flex-shrink: 0;
 	}
 
 	.goodsinfo>view {
@@ -452,6 +613,7 @@
 		align-items: center;
 		height: 100%;
 		width: 220rpx;
+		flex-shrink: 0;
 	}
 
 	.goods-img>view {
@@ -475,6 +637,7 @@
 		position: relative;
 		height: 100%;
 		width: 340rpx;
+		flex-shrink: 0;
 	}
 
 	.goods-name>view {
@@ -483,7 +646,7 @@
 		height: 100%;
 		width: 100%;
 		flex-direction: column;
-		
+
 	}
 
 	.name {
@@ -500,7 +663,7 @@
 		height: 100%;
 		width: 100%;
 		flex-shrink: 1;
-		margin-left:12rpx;
+		/* 	margin-left:12rpx; */
 	}
 
 	.no-reason {
@@ -509,52 +672,645 @@
 		height: 100%;
 		width: 100%;
 	}
-	.name>view{
+
+	.name>view {
 		display: flex;
 		height: 100%;
 		width: 100%;
-		padding-top:20rpx;
+		padding-top: 20rpx;
 	}
-	.name>view>view{
+
+	.name>view>view {
 		display: flex;
 		height: 100%;
 		width: 100%;
 		font-size: 12px;
 		line-height: 26rpx;
 	}
-	.name>view>view>text{
+
+	.name>view>view>text {
 		max-width: 100%;
 		max-height: 100%;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		
+
 	}
-	.desripttions>view{
+
+	.desripttions>view {
 		display: flex;
 		position: relative;
 		height: 100%;
 		width: 100%;
 		padding: 4rpx;
 	}
-	.greybg{
+
+	.greybg {
 		display: flex;
 		position: relative;
 		height: 100%;
 		width: 100%;
-		background-color:#FAFAFA ;
+		background-color: #FAFAFA;
 	}
-	.greybg>view{
+
+	.greybg>view {
 		display: flex;
 		position: relative;
 		height: 100%;
 		width: 100%;
-		padding-right:30rpx;
+		padding-right: 30rpx;
 		font-size: 12px;
 		color: #9C9C9C;
 	}
-	.greybg>view>text{
+
+	.greybg>view>text {
 		display: flex;
 		position: relative;
 		width: 100%;
+	}
+
+	.no-reason {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.text-skycat {
+		display: flex;
+		position: relative;
+		flex: 382;
+		align-items: center;
+		height: 60rpx;
+	}
+
+	.text-sevendays {
+		display: flex;
+		position: relative;
+		flex: 618;
+		height: 100%;
+		align-items: center;
+		height: 60rpx;
+	}
+
+	.text-skycat>view {
+		position: relative;
+		display: flex;
+		background-color: #FFF1EB;
+		height: fit-content;
+		width: fit-content;
+		font-size: 10px;
+		color: #FF5000;
+		overflow: hidden;
+	}
+
+	.text-skycat>view>text {
+		max-width: 100%;
+		max-height: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.text-sevendays>view {
+		display: flex;
+		position: relative;
+		background-color: #FFF1EB;
+		width: fit-content;
+		height: fit-content;
+		font-size: 10px;
+		color: #FF5000;
+		overflow: hidden;
+
+	}
+
+	.text-sevendays>view>text {
+		max-width: 100%;
+		max-height: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.goods-price {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		padding-top: 16rpx;
+
+	}
+
+	.goods-price>view {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		flex-direction: column;
+		padding-right: 24rpx;
+
+
+	}
+
+	.price-num {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: fit-content;
+
+	}
+
+	.price-num>view {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		font-size: 12.5px;
+		justify-content: flex-end;
+		letter-spacing: 0;
+	}
+
+	.price-num>view>text {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: fit-content;
+		max-width: 100%;
+		max-height: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		justify-content: flex-end;
+	}
+
+	.goods-itemnum {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		justify-content: flex-end;
+	}
+
+	.goods-itemnum>view {
+		display: flex;
+		width: 100rpx;
+		height: 100rpx;
+		justify-content: flex-end;
+		font-size: 10px;
+		color: #999999;
+	}
+
+	.postmethods {
+		display: flex;
+		position: relative;
+		flex-shrink: 0;
+		width: 100%;
+		height: fit-content;
+	}
+
+	.postmethods>view {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+	}
+
+	.bgc-bottom {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 440rpx;
+		background-color: white;
+		border-radius: 0 0 24rpx 24rpx;
+	}
+
+	.bgc-bottom>view {
+		display: flex;
+		position: relative;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+	}
+
+	.post {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.money {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		
+	}
+
+	.card {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.cart-notice {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.all-price {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.post>view {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+	}
+
+	.post-text {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		flex: 0.35;
+
+	}
+
+	.post-text>view {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	
+		justify-content: flex-end;
+		align-items: center;
+		font-size: 13px;
+		padding-right: 16rpx;
+
+	}
+
+	.post-text>view>text {
+		display: flex;
+		position: relative;
+
+	}
+
+	.post-config {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		flex: 0.75;
+		
+	}
+
+	.post-free {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		flex: 0.05;
+	}
+
+	.post-config>view {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		color: #999999;
+		font-size: 13px;
+		justify-content: space-between;
+	}
+
+	.post-config>view>text {
+		max-width: 100%;
+		max-height: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.post-free>view {
+		position: relative;
+		display: flex;
+		width: 100%;
+		height: 100%;
+
+	}
+
+	.text-postfree {
+		position: relative;
+		display: flex;
+	
+		
+		align-items: center;
+		font-size: 13px;
+
+	}
+
+	.post-rightarrow {
+		position: relative;
+		display: flex;
+		width: 100%;
+		height: 100%;
+		flex: 1;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.text-postfree>text {
+		white-space: nowrap;
+		max-width: 100%;
+		max-height: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+
+	}
+
+	.post-rightarrow>view {
+		height: 40rpx;
+		width: 40rpx;
+		display: flex;
+		
+	
+		color: #D5D5D5;
+	}
+
+	.money>view {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.money-text {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		flex:0.35;
+	}
+
+	.money-config {
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		flex: 0.75;
+	}
+
+	.money-icon {
+		display: flex;
+		position: relative;
+		width: 40rpx;
+		height: 100%;
+		
+	}
+	.money-text>view{
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		justify-content: flex-start;
+		
+	}
+	
+	.postmoney-text{
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		
+		overflow: hidden;
+	
+	}
+	.postmoney-text>view{
+		max-width: 100%;
+		max-height: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.money-config>view{
+		display: flex;
+		position: relative;
+		align-items: center;
+		color: #ACACAC;
+	}
+	.questionIcon{
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	.questionIcon>view{
+		display: flex;
+		position: relative;
+		width: 40rpx;
+		height: 40rpx;
+		justify-content: center;
+		align-items: center;
+		color: #BDC1BB;
+	}
+	.free{
+		color: #000000;
+		padding-right: 20rpx;
+	}
+	.card>view{
+		display: flex;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+	.text{
+		display: flex;
+		flex: 0.32;
+	
+		height: 100%;
+	}
+	.config{
+		display: flex;
+		flex:0.74;
+		width: 100%;
+		height: 100%;
+	}
+	
+	.icon{
+		display: flex;
+		width: 40rpx;	
+		height: 100%;
+		justify-content: flex-start;
+		align-items: center;
+		color: #D2D2D2;
+	}
+	.cart-notice>view{
+		display: flex;
+		width: 100%;
+		height: 100%;
+		
+	}
+	.all-price{
+		display: flex;
+		width: 100%;
+		height: 100%;
+	
+	}
+	.all-price>view{
+		display: flex;
+		width: 100%;
+		height: 100%;
+		align-items: center;
+		justify-content: flex-end;
+	}
+	.money-icon>view{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color:#CDCDCD;
+	}
+	.text{
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		padding-right:16rpx;
+	}
+	.card-config{
+		display: flex;
+		height: 100%;
+		width: 100%;
+		justify-content: flex-end;
+		align-items: center;
+	}
+	.notice-config{
+		display: flex;
+		height: 100%;
+		width: 100%;
+		align-items: center;
+		color:#757575;
+	}
+	.allPrice{
+		display: flex;
+		height: 60rpx;
+		width: fit-content;
+			padding-right:20rpx;
+		font-size: 12px;
+	}
+	.allNum{
+		display: flex;
+		height:60rpx;
+		width: fit-content;
+		padding-right:6rpx;
+		color:#999999;
+		font-size: 10px;
+	}
+	.all-money{
+			color:#FF5000;
+			font-size: 13px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+	}
+	.card-config>text{
+		padding-right:16rpx;
+	}
+	.post-rightarrow>view{
+		padding-top: 8rpx;
+	}
+	
+	.bottom{
+		width: 100%;
+		height: 100rpx;
+		display: flex;
+		
+	}
+	.bottom>view{
+		display: flex;
+		width: 100%;
+		height:100%;
+		padding-left: 40rpx;
+	}
+	.bottomList>view{
+		display: flex;
+		width: 100%;
+		height: 100%;
+	}
+	.wbcg{
+		display: flex;
+		width: 100%;
+		height: 100%;
+		background-color: white;
+		justify-content: flex-end;
+	}
+	
+	.wbcg>view{
+		display: flex;
+		width: 550rpx;
+		height: 100%;
+		justify-content: flex-end;
+		align-items: center;
+		padding-right:40rpx;
+	}
+	
+	.count-num{
+		display: flex;
+		width: 100%;
+		height: 100%;
+		flex:1;
+		align-items: center;
+		font-size: 13px;
+		color: #999999;
+	}
+	.count-price{
+		display: flex;
+		width: 100%;
+		height: 100%;
+		flex:2;
+		align-items: center;
+	}
+	.sub-cart{
+		display: flex;
+		width: 100%;
+		align-items: center;
+		height: 100%;
+			flex:2;
+	}
+	.sub-cart>view{
+		display: flex;
+		width: 100%;
+		height: 80rpx;
+		
+	}
+	.blue-bgc{
+		background-color: #3EA4F5;
+		border-radius: 50rpx;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		color: white;
+		justify-content: center;
+	}
+	.orange{
+		color: #FF5000;
+		font-size: 13px;
+	}
+	.orangePrice{
+		color: #FF5000;
+		font-size: 18px;
 	}
 </style>
